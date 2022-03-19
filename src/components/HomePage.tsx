@@ -1,4 +1,5 @@
 import { Input, Divider, Label} from 'semantic-ui-react'
+import RatesTable from './RatesTable';
 
 function HomePage() {
   return (
@@ -14,6 +15,8 @@ function HomePage() {
         <Label basic>EUR</Label>
         <input />
       </Input>
+
+      <RatesTable />
     </div>
   );
 }
