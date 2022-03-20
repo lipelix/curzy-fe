@@ -9,3 +9,5 @@ type RatesDb = {
 type Institutions =
   'REVOLUT' |
   'CSOB'
+
+type RatesCollection = Array<RatesDb>

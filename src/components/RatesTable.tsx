@@ -1,20 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'
 import { Table } from 'semantic-ui-react'
-import { ROUTES } from '../apiRoutes'
 
-const RatesTable = () => {
-  const [data, setData] = useState({ rates: [] });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(ROUTES.RATES);
-
-      setData({ rates: result.data });
-    };
-
-    fetchData();
-  }, []);
+const RatesTable: React.FC<{rates: RatesCollection}> = ({rates}) => {
 
   return (
     <Table striped>
@@ -27,7 +13,7 @@ const RatesTable = () => {
       </Table.Header>
 
       <Table.Body>
-        {data.rates.map((row: RatesDb) => (
+        {rates.map((row: RatesDb) => (
           <Table.Row key={row.institution}>
             <Table.Cell>{row.institution}</Table.Cell>
             <Table.Cell>{row.rate}</Table.Cell>
