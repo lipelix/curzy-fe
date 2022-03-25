@@ -5,7 +5,6 @@ import { ROUTES } from '../apiRoutes';
 import RatesTable from './RatesTable';
 
 const computeExchangeRates = (wantAmount: number, rates: RatesCollection, fees: Fees) => {
-  console.log('fees', fees)
 
   return rates
     .map((rate) => {
@@ -74,7 +73,6 @@ function HomePage() {
       <Input labelPosition='right' type='number' min='0' onChange={(event) => {
           const wantAmountValue = parseInt(event.target.value)
           const computedRates = computeExchangeRates(wantAmountValue, rates, fees)
-          console.log('bujaga: ', computedRates);
           setComputedRates(computedRates)
         }}>
         <Label basic>EUR</Label>
