@@ -1,9 +1,28 @@
+type PaymentTypes =
+  'CARD' |
+  'SEPA'
+
 type RatesDb = {
-  'from': String,
-  'to': String,
+  'from': string,
+  'to': string,
   'rate': number,
   'timestamp': EpochTimeStamp,
-  'institution': Institutions
+  'institution': Institutions,
+  'paymentType': PaymentTypes,
+  'fee': number,
+}
+
+type Fees = {
+  'BINANCE': {
+    'CARD': {
+      'type': 'percentage',
+      'value': number,
+    },
+    'SEPA': {
+      'type': 'percentage',
+      'value': number,
+    }
+  }
 }
 
 type Institutions =
@@ -17,6 +36,12 @@ type RatesTable = {
   'timestamp': EpochTimeStamp,
   'institution': Institutions,
   'price': string,
+  'paymentType': string,
+  'institutionFee': string,
+  'institutionFeePrice': string,
+  'cryptoExchangeFee': string,
+  'cryptoExchangeFeePrice': string,
+  'cheapest': boolean
 }
 
 type RatesTableCollection = Array<RatesTable>

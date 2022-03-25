@@ -3,5 +3,6 @@ export const ROUTES = ((host: string) => {
 
   return {
     'RATES': `${hostname}/api/rates`,
+    'FEES': `${hostname}/api/fees`,
   }
 })('https://curzy.herokuapp.com')
