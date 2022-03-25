@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Input, Divider, Label, Container } from 'semantic-ui-react'
+import { Input, Divider, Label, Header } from 'semantic-ui-react'
 import axios from 'axios'
 import { ROUTES } from '../apiRoutes';
 import RatesTable from './RatesTable';
@@ -69,8 +69,8 @@ function HomePage() {
 
   return (
     <div className="HomePage">
-      <Container textAlign='center'><p>I want send</p></Container>
-      <Input labelPosition='right' type='number' min='0' onChange={(event) => {
+      <Header size='small' inverted>I want send</Header>
+      <Input labelPosition='right' type='number' min={0} step={1} onChange={(event) => {
           const wantAmountValue = parseInt(event.target.value)
           const computedRates = computeExchangeRates(wantAmountValue, rates, fees)
           setComputedRates(computedRates)
@@ -79,11 +79,16 @@ function HomePage() {
         <input />
         <Label basic>€</Label>
       </Input>
-      <Container textAlign='center'><p>to</p></Container>
+      <Header size='small' inverted>to</Header>
       <img src="/binance-icon.png" alt='binance-logo' width={200}/>
       {computedRates[0] && <>
         <Divider />
-        <span>Go with {computedRates[0].institution} pay <strong>{computedRates[0].price}</strong></span>
+        <Header size='large' inverted>
+          {computedRates[0].price}
+          <Header.Subheader>
+            Pay with <strong>{computedRates[0].institution}</strong>
+          </Header.Subheader>
+        </Header> 
         <Divider />
         <RatesTable rates={computedRates} />
       </>}
