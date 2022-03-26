@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import { Input, Label, Header, Image, Tab, Menu, Divider } from 'semantic-ui-react'
 import axios from 'axios'
 import { ROUTES } from '../apiRoutes';
 import RatesTable from './RatesTable';
 import { PriceSegment } from './PriceSegment';
 
-ReactGA.initialize('G-6SH6SJK9GD', {
-  titleCase: false,
-});
-ReactGA.pageview(window.location.pathname)
+ReactGA.initialize([{
+  trackingId: process.env.REACT_APP_GA_TRACKING_ID || '',
+}]);
+ReactGA.send({ hitType: 'pageview', page: window.location.pathname })
 
 const computeExchangeRates = (wantAmount: number, rates: RatesCollection, fees: Fees) => {
 
@@ -85,7 +85,8 @@ function HomePage() {
           ReactGA.event({
             category: 'USER',
             action: 'CHANGE_PRICE_AMOUNT',
-            value: wantAmountValue
+            value: wantAmountValue,
+            transport: 'xhr',
           });
           const computedRates = computeExchangeRates(wantAmountValue, rates, fees)
           setComputedRates(computedRates)
@@ -102,6 +103,7 @@ function HomePage() {
               category: 'USER',
               action: 'CHANGE_EXCHANGE',
               label: 'binance',
+              transport: 'xhr',
             });
           }}><Image src="/binance-icon.png" alt='binance-logo' size='small' /></Menu.Item>),
           render: () => <><PriceSegment computedRates={computedRates} />{computedRates[0] && <Tab.Pane><RatesTable rates={computedRates} /></Tab.Pane>}</>,
