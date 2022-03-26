@@ -5,4 +5,4 @@ export const ROUTES = ((host: string) => {
     'RATES': `${hostname}/api/rates`,
     'FEES': `${hostname}/api/fees`,
   }
-})('https://curzy.herokuapp.com')
+})('https://curzy-api.herokuapp.com')
