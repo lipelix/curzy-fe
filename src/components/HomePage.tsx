@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Input, Divider, Label, Header } from 'semantic-ui-react'
+import { Input, Label, Header, Image, Tab, Menu, Divider } from 'semantic-ui-react'
 import axios from 'axios'
 import { ROUTES } from '../apiRoutes';
 import RatesTable from './RatesTable';
+import { PriceSegment } from './PriceSegment';
 
 const computeExchangeRates = (wantAmount: number, rates: RatesCollection, fees: Fees) => {
 
@@ -39,6 +40,8 @@ const computeExchangeRates = (wantAmount: number, rates: RatesCollection, fees: 
     }))
 }
 
+
+
 function HomePage() {
   const [rates, setRates] = useState<RatesCollection>([]);
   const [fees, setFees] = useState<Fees>({
@@ -69,7 +72,8 @@ function HomePage() {
 
   return (
     <div className="HomePage">
-      <Header size='small' inverted>I want send</Header>
+      <Divider hidden/>
+      <Header size='medium' inverted>I want send</Header>
       <Input labelPosition='right' type='number' min={0} step={1} onChange={(event) => {
           const wantAmountValue = parseInt(event.target.value)
           const computedRates = computeExchangeRates(wantAmountValue, rates, fees)
@@ -79,19 +83,13 @@ function HomePage() {
         <input />
         <Label basic>€</Label>
       </Input>
-      <Header size='small' inverted>to</Header>
-      <img src="/binance-icon.png" alt='binance-logo' width={200}/>
-      {computedRates[0] && <>
-        <Divider />
-        <Header size='large' inverted>
-          {computedRates[0].price}
-          <Header.Subheader>
-            Pay with <strong>{computedRates[0].institution}</strong>
-          </Header.Subheader>
-        </Header> 
-        <Divider />
-        <RatesTable rates={computedRates} />
-      </>}
+      <Header size='medium' inverted>to</Header>
+      <Tab menu={{ secondary: true, style: { display: "flex", justifyContent: "center" } }} panes={[
+        {
+          menuItem: (<Menu.Item key='binance'><Image src="/binance-icon.png" alt='binance-logo' size='small' /></Menu.Item>),
+          render: () => <><PriceSegment computedRates={computedRates} />{computedRates[0] && <Tab.Pane><RatesTable rates={computedRates} /></Tab.Pane>}</>,
+        }
+      ]} />
 
     </div>
   );

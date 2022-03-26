@@ -1,9 +1,14 @@
-import { Header, Label, Table } from 'semantic-ui-react'
+import { Header, Label, Table, Image } from 'semantic-ui-react'
+
+const InstitutionIcons = {
+  'REVOLUT': 'revolut-icon.png',
+  'CSOB': 'csob-icon.png',
+}
 
 const RatesTable: React.FC<{rates: RatesTableCollection}> = ({rates}) => {
 
   return (
-    <Table striped>
+    <Table striped padded='very'>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Institution</Table.HeaderCell>
@@ -11,7 +16,7 @@ const RatesTable: React.FC<{rates: RatesTableCollection}> = ({rates}) => {
           <Table.HeaderCell>Fee</Table.HeaderCell>
           <Table.HeaderCell>Type</Table.HeaderCell>
           <Table.HeaderCell>
-            <Header as='h2'>
+            <Header size='tiny'>
               Rate
               <Header.Subheader>
                 Last updated
@@ -24,14 +29,14 @@ const RatesTable: React.FC<{rates: RatesTableCollection}> = ({rates}) => {
       <Table.Body>
         {rates.map((row: RatesTable) => (
           <Table.Row key={row.institution}>
-            <Table.Cell>{row.cheapest && <Label ribbon color='green' style={{display: 'block', margin: '-2em 0 1em -1em'}}>Cheapest</Label>}<span>{row.institution}</span></Table.Cell>
+            <Table.Cell>{row.cheapest && <Label ribbon color='green' style={{display: 'block', margin: '-2em 0 1em -1em'}}>Cheapest</Label>}<Image src={InstitutionIcons[row.institution]} size='mini'  spaced /><span>{row.institution}</span></Table.Cell>
             <Table.Cell>
               <Header as='h1'>
                 {row.price}
               </Header>              
             </Table.Cell>
             <Table.Cell>
-              <Header as='h2'>
+              <Header size='tiny'>
                 {row.cryptoExchangeFeePrice}
                 <Header.Subheader>
                   {row.cryptoExchangeFee}
@@ -40,7 +45,7 @@ const RatesTable: React.FC<{rates: RatesTableCollection}> = ({rates}) => {
             </Table.Cell>
             <Table.Cell>{row.paymentType}</Table.Cell>
             <Table.Cell>
-              <Header as='h2'>
+              <Header size='tiny'>
                 {row.rate}
                 <Header.Subheader>
                   {new Date(row.timestamp).toLocaleString()}
