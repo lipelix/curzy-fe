@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
+import ReactGA from 'react-ga';
 import { Input, Label, Header, Image, Tab, Menu, Divider } from 'semantic-ui-react'
 import axios from 'axios'
 import { ROUTES } from '../apiRoutes';
 import RatesTable from './RatesTable';
 import { PriceSegment } from './PriceSegment';
+
+ReactGA.initialize('G-6SH6SJK9GD', {
+  titleCase: false,
+});
+ReactGA.pageview(window.location.pathname)
 
 const computeExchangeRates = (wantAmount: number, rates: RatesCollection, fees: Fees) => {
 
@@ -76,6 +82,11 @@ function HomePage() {
       <Header size='medium' inverted>I want send</Header>
       <Input labelPosition='right' type='number' min={0} step={1} onChange={(event) => {
           const wantAmountValue = parseInt(event.target.value)
+          ReactGA.event({
+            category: 'USER',
+            action: 'CHANGE_PRICE_AMOUNT',
+            value: wantAmountValue
+          });
           const computedRates = computeExchangeRates(wantAmountValue, rates, fees)
           setComputedRates(computedRates)
         }}>
@@ -86,7 +97,13 @@ function HomePage() {
       <Header size='medium' inverted>to</Header>
       <Tab menu={{ secondary: true, style: { display: "flex", justifyContent: "center" } }} panes={[
         {
-          menuItem: (<Menu.Item key='binance'><Image src="/binance-icon.png" alt='binance-logo' size='small' /></Menu.Item>),
+          menuItem: (<Menu.Item key='binance' onClick={() => {
+            ReactGA.event({
+              category: 'USER',
+              action: 'CHANGE_EXCHANGE',
+              label: 'binance',
+            });
+          }}><Image src="/binance-icon.png" alt='binance-logo' size='small' /></Menu.Item>),
           render: () => <><PriceSegment computedRates={computedRates} />{computedRates[0] && <Tab.Pane><RatesTable rates={computedRates} /></Tab.Pane>}</>,
         }
       ]} />
