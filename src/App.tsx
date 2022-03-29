@@ -1,5 +1,6 @@
 import './App.css';
 import HomePage from './components/HomePage';
+import { SupportMe } from './components/SupportMe';
 
 function App() {
   return (
@@ -7,6 +8,9 @@ function App() {
       <header className="App-header" >
         <HomePage />
       </header>
+      <div className='App-footer' >
+        <SupportMe />
+      </div>
     </div>
   );
 }
