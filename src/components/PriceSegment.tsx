@@ -1,17 +1,18 @@
 import { Divider, Header } from 'semantic-ui-react'
 
-export const PriceSegment : React.FC<{computedRates: RatesTableCollection}> = ({computedRates}) => {
+export const PriceSegment: React.FC<{ computedRates: RatesTableCollection }> = ({ computedRates }) => {
   if (!computedRates[0]) return null
 
-  return ( <>
+  return (
+    <>
       <Divider />
-      <Header size='large' inverted>
+      <Header size="large" inverted>
         {computedRates[0].price}
         <Header.Subheader>
           Pay with <strong>{computedRates[0].institution}</strong>
         </Header.Subheader>
-      </Header> 
+      </Header>
       <Divider />
-    </> 
+    </>
   )
 }
