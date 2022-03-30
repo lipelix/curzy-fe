@@ -24,7 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": "eslint ./src --ext .ts,.tsx"
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {
@@ -48,6 +49,8 @@
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
-    "husky": "^7.0.4"
+    "eslint": "^8.12.0",
+    "husky": "^7.0.4",
+    "prettier": "^2.6.1"
   }
 }
