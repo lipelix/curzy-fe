@@ -3,3 +3,4 @@
 
 npx --no-install commitlint --edit ""
 npm run eslint
+npm run format
