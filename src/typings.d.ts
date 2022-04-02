@@ -32,6 +32,7 @@ type RatesTable = {
   timestamp: EpochTimeStamp
   institution: Institutions
   price: string
+  priceDifference: string
   paymentType: string
   institutionFee: string
   institutionFeePrice: string

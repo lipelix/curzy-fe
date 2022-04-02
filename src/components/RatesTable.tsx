@@ -32,6 +32,11 @@ const RatesTable: React.FC<{ rates: RatesTableCollection }> = ({ rates }) => {
                   Cheapest
                 </Label>
               )}
+              {!row.cheapest && (
+                <Label ribbon color="red" style={{ display: 'block', margin: '-2em 0 1em -1em' }}>
+                  {row.priceDifference}
+                </Label>
+              )}
               <Image src={InstitutionIcons[row.institution]} size="mini" spaced />
               <span>{row.institution}</span>
             </Table.Cell>

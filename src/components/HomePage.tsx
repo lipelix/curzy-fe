@@ -36,15 +36,20 @@ const computeExchangeRates = (wantAmount: number, rates: RatesCollection, fees: 
       }
     })
     .sort((a, b) => a.price - b.price)
-    .map((rate, index) => ({
+    .map((rate, index, array) => ({
+      ...rate,
+      cheapest: index === 0,
+      priceDifference: index === 0 ? 0 : rate.price - array[0].price
+    }))
+    .map((rate) => ({
       ...rate,
       rate: `${rate.rate.toFixed(2)} Kč / 1 €`,
       price: `${rate.price.toFixed(0)} Kč`,
+      priceDifference: `+${rate.priceDifference.toFixed(0)} Kč`,
       institutionFee: `${rate.institutionFee} %`,
       institutionFeePrice: `${rate.institutionFeePrice.toFixed(0)} Kč`,
       cryptoExchangeFee: `${rate.cryptoExchangeFee} %`,
       cryptoExchangeFeePrice: `${rate.cryptoExchangeFeePrice.toFixed(0)} Kč`,
-      cheapest: index === 0,
     }))
 }
 
