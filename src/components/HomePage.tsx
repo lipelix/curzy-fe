@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import ReactGA from 'react-ga4'
-import { Input, Label, Header, Image, Tab, Menu, Divider } from 'semantic-ui-react'
+import { Input, Label, Header, Image, Tab, Menu, Divider, Dimmer, Loader } from 'semantic-ui-react'
 import axios from 'axios'
 import { ROUTES } from '../apiRoutes'
 import RatesTable from './RatesTable'
@@ -39,7 +39,7 @@ const computeExchangeRates = (wantAmount: number, rates: RatesCollection, fees: 
     .map((rate, index, array) => ({
       ...rate,
       cheapest: index === 0,
-      priceDifference: index === 0 ? 0 : rate.price - array[0].price
+      priceDifference: index === 0 ? 0 : rate.price - array[0].price,
     }))
     .map((rate) => ({
       ...rate,
@@ -68,14 +68,20 @@ function HomePage() {
     },
   })
   const [computedRates, setComputedRates] = useState<RatesTableCollection>([])
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const fetchData = async () => {
-      const rates = await axios(ROUTES.RATES)
-      const fees = await axios(ROUTES.FEES)
-
-      setRates(rates.data)
-      setFees(fees.data)
+      try {
+        const rates = await axios(ROUTES.RATES)
+        const fees = await axios(ROUTES.FEES)
+        setRates(rates.data)
+        setFees(fees.data)
+      } catch (e) {
+        console.log(e)
+      } finally {
+        setLoading(false)
+      }
     }
 
     fetchData()
@@ -143,6 +149,11 @@ function HomePage() {
           },
         ]}
       />
+      {loading && (
+        <Dimmer active>
+          <Loader size="large">Loading</Loader>
+        </Dimmer>
+      )}
     </div>
   )
 }
