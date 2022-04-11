@@ -3,6 +3,7 @@ import { Header, Label, Table, Image } from 'semantic-ui-react'
 const InstitutionIcons = {
   REVOLUT: 'revolut-icon.png',
   CSOB: 'csob-icon.png',
+  AIRBANK: 'airbank-icon.png',
 }
 
 const RatesTable: React.FC<{ rates: RatesTableCollection }> = ({ rates }) => {

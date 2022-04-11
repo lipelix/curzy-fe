@@ -23,7 +23,7 @@ type Fees = {
   }
 }
 
-type Institutions = 'REVOLUT' | 'CSOB'
+type Institutions = 'REVOLUT' | 'CSOB' | 'AIRBANK'
 
 type RatesCollection = Array<RatesDb>
 
